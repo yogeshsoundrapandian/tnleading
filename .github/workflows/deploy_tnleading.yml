@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy JAR app to Azure Web App - tnleading
+name: Build and deploy WAR app to Azure Web App - tnleading
 
 on:
   push:
@@ -19,7 +19,7 @@ jobs:
     - name: Set up Java version
       uses: actions/setup-java@v1
       with:
-        java-version: '11'
+        java-version: '8'
 
     - name: Build with Maven
       run: mvn clean install
@@ -28,7 +28,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: java-app
-        path: '${{ github.workspace }}/target/*.jar'
+        path: '${{ github.workspace }}/target/*.war'
 
   deploy:
     runs-on: windows-latest
@@ -49,5 +49,5 @@ jobs:
       with:
         app-name: 'tnleading'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_c8f9c6679f5f4137a130acbf22cc2805 }}
-        package: '*.jar'
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_022b89bf00d24168885766bae829f604 }}
+        package: '*.war'
